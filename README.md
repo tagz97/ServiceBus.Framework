@@ -32,5 +32,5 @@ public async Task<bool> SendMessages(List<Class> items)
      return await _serviceBusService.QueueBatchMessageAsync<Class>(items);
 }
 ```
-# In progress
+# Under investigation
 - Add a listener for a queue or topic with subscription
