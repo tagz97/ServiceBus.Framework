@@ -3,6 +3,19 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <VersionPrefix>1.0.0</VersionPrefix>
+    <Authors>Declan Taggart</Authors>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <IncludeSymbols>true</IncludeSymbols>
+    <SymbolPackageFormat>snupkg</SymbolPackageFormat>
+    <Description>
+      1.0.0
+      - Added initial Service Bus Implementation for sending single messages and bulk messages to a queue or topic
+    </Description>
+    <BaseOutputPath>C:\NuGets</BaseOutputPath>
   </PropertyGroup>
 
   <ItemGroup>
