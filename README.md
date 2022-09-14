@@ -5,7 +5,7 @@ The service bus service can be added by using the following in your `Startup.cs`
 ```CSharp
 string connectionString = "REPLACE_ME"; // this is the connection string to your Azure Service Bus
 string queueOrTopicName = "REPLACE_ME"; // This is the queue or topic name you want to publish messages to
-bool enabled = true; // Set this to false if you do not want the service bus initialized in an environment
+bool enabled = true; // Set this to false if you do not want the service bus initialized in an environment. This will not break the implementation, it will simply not send the message to a queue/topic as the queue/topic is not initialized
 
 builder.Services.AddServiceBusService(connectionString, queueOrTopicName, enabled);
 ```
