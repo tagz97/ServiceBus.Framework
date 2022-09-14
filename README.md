@@ -1,5 +1,5 @@
 # ServiceBus.Framework
-A service bus framework for sending messages to Azure Service Bus.
+A service bus framework NuGet package for sending messages to Azure Service Bus.
 
 The service bus service can be added by using the following in your `Startup.cs` or anywhere you perform your DI:
 ```CSharp
