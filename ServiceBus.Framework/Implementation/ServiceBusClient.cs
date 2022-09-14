@@ -9,7 +9,7 @@ namespace ServiceBus.Framework.Implementation
     /// <summary>
     /// Service bus client that sends messages to a queue or topic
     /// </summary>
-    internal class ServiceBusClient : IServiceBusClient
+    public class ServiceBusClient : IServiceBusClient
     {
         private readonly ServiceBusSender _serviceBusSender;
 
@@ -40,10 +40,6 @@ namespace ServiceBus.Framework.Implementation
                     return new ServiceBusResponse(false, ex.Message);
                 }
             }
-            else
-            {
-                return new ServiceBusResponse(false, "Service Bus Sender not initialized.");
-            }
 
             return new ServiceBusResponse(true);
         }
@@ -62,10 +58,6 @@ namespace ServiceBus.Framework.Implementation
                 {
                     return new ServiceBusResponse(false, ex.Message);
                 }
-            }
-            else
-            {
-                return new ServiceBusResponse(false, "Service Bus Sender not initialized.");
             }
 
             return new ServiceBusResponse(true);

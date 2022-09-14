@@ -7,7 +7,7 @@ namespace ServiceBus.Framework.Implementation
     /// <summary>
     /// Service for sending messages to service bus using a client
     /// </summary>
-    internal class ServiceBusService : IServiceBusService
+    public class ServiceBusService : IServiceBusService
     {
         private readonly IServiceBusClient _serviceBusClient;
         private readonly ILogger<ServiceBusService> _logger;
