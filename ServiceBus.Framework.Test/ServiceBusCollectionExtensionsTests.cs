@@ -17,7 +17,7 @@
             _services = new();
 
             // Act
-            var action = () => _services.AddServiceBusService(connectionString, QueueOrTopicName, _enabled);
+            var action = () => _services.AddServiceBusSenderService(connectionString, QueueOrTopicName, _enabled);
 
             // Assert
             Assert.Throws<ArgumentException>(action);
@@ -33,7 +33,7 @@
             _services = new();
 
             // Act
-            var action = () => _services.AddServiceBusService(ConnectionString, queueOrTopicName, _enabled);
+            var action = () => _services.AddServiceBusSenderService(ConnectionString, queueOrTopicName, _enabled);
 
             // Assert
             Assert.Throws<ArgumentException>(action);
@@ -49,7 +49,7 @@
             _services = new();
 
             // Act
-            var exception = Record.Exception(() => _services.AddServiceBusService(connectionString, QueueOrTopicName, _enabled));
+            var exception = Record.Exception(() => _services.AddServiceBusSenderService(connectionString, QueueOrTopicName, _enabled));
 
             // Assert
             Assert.Null(exception);
@@ -65,7 +65,7 @@
             _services = new();
 
             // Act
-            var exception = Record.Exception(() => _services.AddServiceBusService(ConnectionString, queueOrTopicName, _enabled));
+            var exception = Record.Exception(() => _services.AddServiceBusSenderService(ConnectionString, queueOrTopicName, _enabled));
 
             var first = _services.First();
 
@@ -81,7 +81,7 @@
             _services = new();
 
             // Act
-            _services.AddServiceBusService(ConnectionString, QueueOrTopicName, _enabled);
+            _services.AddServiceBusSenderService(ConnectionString, QueueOrTopicName, _enabled);
 
             var serviceBusClientInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusClient));
             var serviceBusServiceInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusClient));
@@ -99,7 +99,7 @@
             _services = new();
 
             // Act
-            _services.AddServiceBusService(ConnectionString, QueueOrTopicName, _enabled);
+            _services.AddServiceBusSenderService(ConnectionString, QueueOrTopicName, _enabled);
 
             var serviceBusClientInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusClient));
             var serviceBusServiceInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusClient));

@@ -15,7 +15,7 @@ namespace ServiceBus.Framework.ServiceExtension
         /// <param name="enabled">Creates sender if <see langword="true"/></param>
         /// <returns>Provided <paramref name="services"/> collection</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static IServiceCollection AddServiceBusService(this IServiceCollection services, string connectionString, string queueOrTopicName, bool enabled)
+        public static IServiceCollection AddServiceBusSenderService(this IServiceCollection services, string connectionString, string queueOrTopicName, bool enabled)
         {
             if (enabled)
             {
