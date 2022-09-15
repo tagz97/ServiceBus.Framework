@@ -15,24 +15,56 @@ namespace ServiceBus.Framework.ServiceExtension
         /// <param name="enabled">Creates sender if <see langword="true"/></param>
         /// <returns>Provided <paramref name="services"/> collection</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static IServiceCollection AddServiceBusSenderService(this IServiceCollection services, string connectionString, string queueOrTopicName, bool enabled)
+        public static IServiceCollection AddServiceBusSenderService(
+            this IServiceCollection services,
+            string connectionString,
+            string queueOrTopicName,
+            bool enabled)
         {
             if (enabled)
             {
-                if (string.IsNullOrEmpty(connectionString))
-                {
-                    throw new ArgumentException("Please specify a valid connection string in your application configuration");
-                }
-                if (string.IsNullOrEmpty(queueOrTopicName))
-                {
-                    throw new ArgumentException("Please specify a valid queue or topic name in your application configuration");
-                }
+                ValidateInput(connectionString, queueOrTopicName);
             }
 
-            AddServiceBusClient(services, connectionString, queueOrTopicName, enabled);
+            services.AddServiceBusClient(connectionString, queueOrTopicName, enabled);
             services.AddSingleton<IServiceBusService, ServiceBusService>();
 
             return services;
+        }
+
+        public static IServiceCollection AddServiceBusListenerService(
+            this IServiceCollection services,
+            string connectionString,
+            string queueOrTopicName,
+            bool enabled,
+            string subscriptionName = null)
+        {
+            if (enabled)
+            {
+                ValidateInput(connectionString, queueOrTopicName);
+            }
+
+            services.AddServiceBusListenerClient(connectionString, queueOrTopicName, enabled, subscriptionName);
+
+            return services;
+        }
+
+        /// <summary>
+        /// Validate user input to ensure values are provided for <paramref name="connectionString"/> and <paramref name="queueOrTopicName"/>
+        /// </summary>
+        /// <param name="connectionString">The connection <see cref="string"/> for the Service Bus</param>
+        /// <param name="queueOrTopicName">The queue or topic name <see cref="string"/> for the Service Bus</param>
+        /// <exception cref="ArgumentException"><see cref="ArgumentException"/> when <paramref name="connectionString"/> or <paramref name="queueOrTopicName"/> is null or empty</exception>
+        private static void ValidateInput(string connectionString, string queueOrTopicName)
+        {
+            if (string.IsNullOrEmpty(connectionString))
+            {
+                throw new ArgumentException("Please specify a valid connection string in your application configuration");
+            }
+            if (string.IsNullOrEmpty(queueOrTopicName))
+            {
+                throw new ArgumentException("Please specify a valid queue or topic name in your application configuration");
+            }
         }
 
         /// <summary>
@@ -58,6 +90,18 @@ namespace ServiceBus.Framework.ServiceExtension
 
                 return serviceBusClient;
             });
+
+            return services;
+        }
+
+        private static IServiceCollection AddServiceBusListenerClient(
+            this IServiceCollection services,
+            string connectionString,
+            string queueOrTopicName,
+            bool enabled,
+            string subscriptionName = null)
+        {
+
 
             return services;
         }
