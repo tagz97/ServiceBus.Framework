@@ -8,7 +8,6 @@ namespace ServiceBus.Framework.Models
     /// <typeparam name="T">Type of data to be sent</typeparam>
     public class Event<T>
     {
-        private DateTimeOffset _eventCreated;
         private string _message;
 
         /// <summary>
@@ -17,7 +16,7 @@ namespace ServiceBus.Framework.Models
         /// <param name="data">Data to serialize for the message</param>
         public Event(T data)
         {
-            _eventCreated = DateTimeOffset.UtcNow;
+            EventCreatedDateTimeOffset = DateTimeOffset.UtcNow;
             Message = JsonConvert.SerializeObject(data);
         }
 
@@ -25,18 +24,16 @@ namespace ServiceBus.Framework.Models
         /// Get the DateTimeOffset that the event was created at
         /// </summary>
         [JsonProperty("eventCreated")]
-        public DateTimeOffset EventCreatedDateTimeOffset
-        {
-            get { return _eventCreated; }
-        }
+        public DateTimeOffset EventCreatedDateTimeOffset { get; }
 
         /// <summary>
         /// The message to be added to the queue
         /// </summary>
         [JsonProperty("message")]
-        public string Message { 
-            get { return JsonConvert.DeserializeObject(_message).ToString(); }
-            set { _message = value; }
+        public string Message
+        {
+            get => JsonConvert.DeserializeObject(_message).ToString();
+            set => _message = value;
         }
     }
 }

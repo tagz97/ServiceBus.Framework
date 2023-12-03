@@ -28,11 +28,12 @@ namespace ServiceBus.Framework.Implementation
                     using ServiceBusMessageBatch messageBatch = await _serviceBusSender.CreateMessageBatchAsync();
                     foreach (var eventItem in @event)
                     {
-                        if(!messageBatch.TryAddMessage(new ServiceBusMessage(JsonConvert.SerializeObject(eventItem))))
+                        if (!messageBatch.TryAddMessage(new ServiceBusMessage(JsonConvert.SerializeObject(eventItem))))
                         {
                             throw new Exception($"The message {eventItem.Message} could not be added to the message batch");
                         }
                     }
+
                     await _serviceBusSender.SendMessagesAsync(messageBatch);
                 }
                 catch (Exception ex)

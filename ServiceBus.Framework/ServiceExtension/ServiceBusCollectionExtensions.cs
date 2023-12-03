@@ -61,6 +61,7 @@ namespace ServiceBus.Framework.ServiceExtension
             {
                 throw new ArgumentException("Please specify a valid connection string in your application configuration");
             }
+
             if (string.IsNullOrEmpty(queueOrTopicName))
             {
                 throw new ArgumentException("Please specify a valid queue or topic name in your application configuration");
@@ -101,7 +102,6 @@ namespace ServiceBus.Framework.ServiceExtension
             bool enabled,
             string subscriptionName = null)
         {
-
 
             return services;
         }

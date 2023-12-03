@@ -12,6 +12,11 @@ namespace ServiceBus.Framework.Implementation
         private readonly IServiceBusClient _serviceBusClient;
         private readonly ILogger<ServiceBusService> _logger;
 
+        /// <summary>
+        /// Default constructor to initialise the Service
+        /// </summary>
+        /// <param name="serviceBusClient"><see cref="IServiceBusClient"/> from DI container</param>
+        /// <param name="logger"><see cref="Ilogger"/> from DI container</param>
         public ServiceBusService(IServiceBusClient serviceBusClient, ILogger<ServiceBusService> logger)
         {
             _serviceBusClient = serviceBusClient;
@@ -30,7 +35,7 @@ namespace ServiceBus.Framework.Implementation
             var resp = await _serviceBusClient.SendBatchMessageAsync(events);
             if (!resp.Success)
             {
-                _logger.LogError($"Unable to queue batch messages. Error:\n{resp.Error}");
+                _logger.LogError("{Class} {Method}: Unable to queue batch messages. Error Message:\n{Message}", nameof(ServiceBusService), nameof(QueueBatchMessageAsync), resp.Message);
                 return false;
             }
 
@@ -44,7 +49,8 @@ namespace ServiceBus.Framework.Implementation
             var resp = await _serviceBusClient.SendMessageAsync(@event);
             if (!resp.Success)
             {
-                _logger.LogError($"Unable to queue message. Error:{resp.Error}");
+                _logger.LogError("{Class} {Method}: Unable to queue message. Error Message:\n{Message}", nameof(ServiceBusService), nameof(QueueBatchMessageAsync), resp.Message);
+
                 return false;
             }
 

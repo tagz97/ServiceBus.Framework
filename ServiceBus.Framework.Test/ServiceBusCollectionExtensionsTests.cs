@@ -17,10 +17,10 @@
             _services = new();
 
             // Act
-            var action = () => _services.AddServiceBusSenderService(connectionString, QueueOrTopicName, _enabled);
+            IServiceCollection action() => _services.AddServiceBusSenderService(connectionString, QueueOrTopicName, _enabled);
 
             // Assert
-            Assert.Throws<ArgumentException>(action);
+            Assert.Throws<ArgumentException>((Func<IServiceCollection>)action);
         }
 
         [Theory]
@@ -33,10 +33,10 @@
             _services = new();
 
             // Act
-            var action = () => _services.AddServiceBusSenderService(ConnectionString, queueOrTopicName, _enabled);
+            IServiceCollection action() => _services.AddServiceBusSenderService(ConnectionString, queueOrTopicName, _enabled);
 
             // Assert
-            Assert.Throws<ArgumentException>(action);
+            Assert.Throws<ArgumentException>((Func<IServiceCollection>)action);
         }
 
         [Theory]
@@ -84,7 +84,7 @@
             _services.AddServiceBusSenderService(ConnectionString, QueueOrTopicName, _enabled);
 
             var serviceBusClientInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusClient));
-            var serviceBusServiceInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusClient));
+            var serviceBusServiceInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusService));
 
             // Assert
             Assert.True(serviceBusClientInjected);
@@ -102,7 +102,7 @@
             _services.AddServiceBusSenderService(ConnectionString, QueueOrTopicName, _enabled);
 
             var serviceBusClientInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusClient));
-            var serviceBusServiceInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusClient));
+            var serviceBusServiceInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusService));
 
             // Assert
             Assert.True(serviceBusClientInjected);
