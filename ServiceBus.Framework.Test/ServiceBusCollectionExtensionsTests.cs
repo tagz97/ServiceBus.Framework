@@ -2,8 +2,8 @@
 {
     public class ServiceBusCollectionExtensionsTests
     {
-        private readonly string QueueOrTopicName = "queueName";
-        private readonly string ConnectionString = "connectionString";
+        private readonly string _queueOrTopicName = "queueName";
+        private readonly string _connectionString = "connectionString";
         private ServiceCollection _services;
         private bool _enabled;
 
@@ -17,7 +17,7 @@
             _services = new();
 
             // Act
-            IServiceCollection action() => _services.AddServiceBusSenderService(connectionString, QueueOrTopicName, _enabled);
+            IServiceCollection action() => _services.AddServiceBusSenderService(connectionString, _queueOrTopicName, _enabled);
 
             // Assert
             Assert.Throws<ArgumentException>((Func<IServiceCollection>)action);
@@ -33,7 +33,7 @@
             _services = new();
 
             // Act
-            IServiceCollection action() => _services.AddServiceBusSenderService(ConnectionString, queueOrTopicName, _enabled);
+            IServiceCollection action() => _services.AddServiceBusSenderService(_connectionString, queueOrTopicName, _enabled);
 
             // Assert
             Assert.Throws<ArgumentException>((Func<IServiceCollection>)action);
@@ -49,7 +49,7 @@
             _services = new();
 
             // Act
-            var exception = Record.Exception(() => _services.AddServiceBusSenderService(connectionString, QueueOrTopicName, _enabled));
+            var exception = Record.Exception(() => _services.AddServiceBusSenderService(connectionString, _queueOrTopicName, _enabled));
 
             // Assert
             Assert.Null(exception);
@@ -65,7 +65,7 @@
             _services = new();
 
             // Act
-            var exception = Record.Exception(() => _services.AddServiceBusSenderService(ConnectionString, queueOrTopicName, _enabled));
+            var exception = Record.Exception(() => _services.AddServiceBusSenderService(_connectionString, queueOrTopicName, _enabled));
 
             var first = _services.First();
 
@@ -81,7 +81,7 @@
             _services = new();
 
             // Act
-            _services.AddServiceBusSenderService(ConnectionString, QueueOrTopicName, _enabled);
+            _services.AddServiceBusSenderService(_connectionString, _queueOrTopicName, _enabled);
 
             var serviceBusClientInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusSenderClient));
             var serviceBusServiceInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusService));
@@ -99,7 +99,7 @@
             _services = new();
 
             // Act
-            _services.AddServiceBusSenderService(ConnectionString, QueueOrTopicName, _enabled);
+            _services.AddServiceBusSenderService(_connectionString, _queueOrTopicName, _enabled);
 
             var serviceBusClientInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusSenderClient));
             var serviceBusServiceInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusService));

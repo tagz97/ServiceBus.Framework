@@ -1,3 +1,5 @@
+using ServiceBus.Framework.Implementation;
+
 namespace ServiceBus.Framework.Test
 {
     public class ServiceBusClientTests
@@ -12,7 +14,7 @@ namespace ServiceBus.Framework.Test
         public async void SendMessageAsync_ServiceBusSenderIsNull_ReturnsSuccessResponseAndSenderIsNotCalled()
         {
             // Arrange
-            var client = new Implementation.ServiceBusSenderClient(null);
+            var client = new ServiceBusSenderClient(null);
 
             // Act
             var result = await client.SendMessageAsync(new Event<ContentClass>(_content));
@@ -26,7 +28,7 @@ namespace ServiceBus.Framework.Test
         public async void SendMessageAsync_ServiceBusSenderIsNotNull_ReturnsSuccessResponseAndSenderIsCalled()
         {
             // Arrange
-            var client = new Implementation.ServiceBusSenderClient(_serviceBusSenderMock.Object);
+            var client = new ServiceBusSenderClient(_serviceBusSenderMock.Object);
 
             // Act
             var response = await client.SendMessageAsync(new Event<ContentClass>(_content));
@@ -40,7 +42,7 @@ namespace ServiceBus.Framework.Test
         public async void SendBatchMessageAsync_ServiceBusSenderIsNull_ReturnsSuccessResponseAndSenderIsNotCalled()
         {
             // Arrange
-            var client = new Implementation.ServiceBusSenderClient(null);
+            var client = new ServiceBusSenderClient(null);
 
             // Act
             var result = await client.SendBatchMessageAsync(new List<Event<ContentClass>>());
@@ -54,7 +56,7 @@ namespace ServiceBus.Framework.Test
         public async void SendBatchMessageAsync_ServiceBusSenderIsNotNull_ReturnsSuccessResponseAndSenderIsCalled()
         {
             // Arrange
-            var client = new Implementation.ServiceBusSenderClient(_serviceBusSenderMock.Object);
+            var client = new ServiceBusSenderClient(_serviceBusSenderMock.Object);
 
             // Act
             var response = await client.SendMessageAsync(new Event<ContentClass>(_content));

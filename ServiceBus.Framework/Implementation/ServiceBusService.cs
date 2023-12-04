@@ -1,6 +1,7 @@
 ﻿using Microsoft.Extensions.Logging;
 using ServiceBus.Framework.Interfaces;
 using ServiceBus.Framework.Models;
+using ServiceBus.Framework.Response;
 
 namespace ServiceBus.Framework.Implementation
 {
@@ -24,7 +25,7 @@ namespace ServiceBus.Framework.Implementation
         }
 
         /// <inheritdoc/>
-        public async Task<bool> QueueBatchMessageAsync<T>(IEnumerable<T> entities)
+        public async Task<ServiceBusResponse> QueueBatchMessageAsync<T>(IEnumerable<T> entities)
         {
             List<Event<T>> events = new();
             foreach (var entity in entities)
@@ -36,25 +37,22 @@ namespace ServiceBus.Framework.Implementation
             if (!resp.Success)
             {
                 _logger.LogError("{Class} {Method}: Unable to queue batch messages. Error Message:\n{Message}", nameof(ServiceBusService), nameof(QueueBatchMessageAsync), resp.Message);
-                return false;
             }
 
-            return true;
+            return resp;
         }
 
         /// <inheritdoc/>
-        public async Task<bool> QueueMessageAsync<T>(T entity)
+        public async Task<ServiceBusResponse> QueueMessageAsync<T>(T entity)
         {
             Event<T> @event = new(entity);
             var resp = await _serviceBusClient.SendMessageAsync(@event);
             if (!resp.Success)
             {
                 _logger.LogError("{Class} {Method}: Unable to queue message. Error Message:\n{Message}", nameof(ServiceBusService), nameof(QueueBatchMessageAsync), resp.Message);
-
-                return false;
             }
 
-            return true;
+            return resp;
         }
     }
 }
