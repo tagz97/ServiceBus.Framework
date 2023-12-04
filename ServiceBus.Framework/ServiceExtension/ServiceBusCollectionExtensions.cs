@@ -15,11 +15,7 @@ namespace ServiceBus.Framework.ServiceExtension
         /// <param name="enabled">Creates sender if <see langword="true"/></param>
         /// <returns>Provided <paramref name="services"/> collection</returns>
         /// <exception cref="ArgumentException"></exception>
-        public static IServiceCollection AddServiceBusSenderService(
-            this IServiceCollection services,
-            string connectionString,
-            string queueOrTopicName,
-            bool enabled)
+        public static IServiceCollection AddServiceBusSenderService(this IServiceCollection services, string connectionString, string queueOrTopicName, bool enabled)
         {
             if (enabled)
             {
@@ -28,23 +24,6 @@ namespace ServiceBus.Framework.ServiceExtension
 
             services.AddServiceBusClient(connectionString, queueOrTopicName, enabled);
             services.AddSingleton<IServiceBusService, ServiceBusService>();
-
-            return services;
-        }
-
-        public static IServiceCollection AddServiceBusListenerService(
-            this IServiceCollection services,
-            string connectionString,
-            string queueOrTopicName,
-            bool enabled,
-            string subscriptionName = null)
-        {
-            if (enabled)
-            {
-                ValidateInput(connectionString, queueOrTopicName);
-            }
-
-            services.AddServiceBusListenerClient(connectionString, queueOrTopicName, enabled, subscriptionName);
 
             return services;
         }
@@ -69,39 +48,27 @@ namespace ServiceBus.Framework.ServiceExtension
         }
 
         /// <summary>
-        /// Injects <see cref="IServiceBusClient"/> service into <paramref name="services"/>
+        /// Injects <see cref="IServiceBusSenderClient"/> service into <paramref name="services"/>
         /// </summary>
         /// <param name="connectionString">Connection string to the Azure Service Bus</param>
         /// <param name="queueOrTopicName">Azure service bus queue or topic name</param>
         /// <param name="enabled">Creates sender if <see langword="true"/></param>
         /// <returns>Provided <paramref name="services"/> collection</returns>
-        private static IServiceCollection AddServiceBusClient
-            (this IServiceCollection services, string connectionString, string queueOrTopicName, bool enabled)
+        private static IServiceCollection AddServiceBusClient(this IServiceCollection services, string connectionString, string queueOrTopicName, bool enabled)
         {
             services.AddSingleton((s) =>
             {
                 ServiceBusSender sender = null;
                 if (enabled)
                 {
-                    Azure.Messaging.ServiceBus.ServiceBusClient client = new(connectionString);
+                    ServiceBusClient client = new(connectionString);
                     sender = client.CreateSender(queueOrTopicName);
                 }
 
-                IServiceBusClient serviceBusClient = new Implementation.ServiceBusClient(sender);
+                IServiceBusSenderClient serviceBusClient = new Implementation.ServiceBusSenderClient(sender);
 
                 return serviceBusClient;
             });
-
-            return services;
-        }
-
-        private static IServiceCollection AddServiceBusListenerClient(
-            this IServiceCollection services,
-            string connectionString,
-            string queueOrTopicName,
-            bool enabled,
-            string subscriptionName = null)
-        {
 
             return services;
         }

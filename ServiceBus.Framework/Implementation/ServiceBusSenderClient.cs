@@ -9,11 +9,11 @@ namespace ServiceBus.Framework.Implementation
     /// <summary>
     /// Service bus client that sends messages to a queue or topic
     /// </summary>
-    public class ServiceBusClient : IServiceBusClient
+    public class ServiceBusSenderClient : IServiceBusSenderClient
     {
         private readonly ServiceBusSender _serviceBusSender;
 
-        public ServiceBusClient(ServiceBusSender serviceBusSender)
+        public ServiceBusSenderClient(ServiceBusSender serviceBusSender)
         {
             _serviceBusSender = serviceBusSender;
         }

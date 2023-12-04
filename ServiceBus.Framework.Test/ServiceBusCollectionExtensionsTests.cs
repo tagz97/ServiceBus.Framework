@@ -83,7 +83,7 @@
             // Act
             _services.AddServiceBusSenderService(ConnectionString, QueueOrTopicName, _enabled);
 
-            var serviceBusClientInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusClient));
+            var serviceBusClientInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusSenderClient));
             var serviceBusServiceInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusService));
 
             // Assert
@@ -101,7 +101,7 @@
             // Act
             _services.AddServiceBusSenderService(ConnectionString, QueueOrTopicName, _enabled);
 
-            var serviceBusClientInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusClient));
+            var serviceBusClientInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusSenderClient));
             var serviceBusServiceInjected = _services.Any(x => x.ServiceType == typeof(IServiceBusService));
 
             // Assert

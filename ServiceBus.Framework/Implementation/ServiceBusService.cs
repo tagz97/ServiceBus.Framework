@@ -9,15 +9,15 @@ namespace ServiceBus.Framework.Implementation
     /// </summary>
     public class ServiceBusService : IServiceBusService
     {
-        private readonly IServiceBusClient _serviceBusClient;
+        private readonly IServiceBusSenderClient _serviceBusClient;
         private readonly ILogger<ServiceBusService> _logger;
 
         /// <summary>
         /// Default constructor to initialise the Service
         /// </summary>
-        /// <param name="serviceBusClient"><see cref="IServiceBusClient"/> from DI container</param>
+        /// <param name="serviceBusClient"><see cref="IServiceBusSenderClient"/> from DI container</param>
         /// <param name="logger"><see cref="Ilogger"/> from DI container</param>
-        public ServiceBusService(IServiceBusClient serviceBusClient, ILogger<ServiceBusService> logger)
+        public ServiceBusService(IServiceBusSenderClient serviceBusClient, ILogger<ServiceBusService> logger)
         {
             _serviceBusClient = serviceBusClient;
             _logger = logger;

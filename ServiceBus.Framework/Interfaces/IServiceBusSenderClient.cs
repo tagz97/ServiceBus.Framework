@@ -1,4 +1,5 @@
-﻿using ServiceBus.Framework.Models;
+﻿using Azure.Messaging.ServiceBus;
+using ServiceBus.Framework.Models;
 using ServiceBus.Framework.Response;
 
 namespace ServiceBus.Framework.Interfaces
@@ -6,7 +7,7 @@ namespace ServiceBus.Framework.Interfaces
     /// <summary>
     /// Abstraction of the ServiceBusClient for sending messages
     /// </summary>
-    public interface IServiceBusClient
+    public interface IServiceBusSenderClient
     {
         /// <summary>
         /// Send a message to a queue or topic
