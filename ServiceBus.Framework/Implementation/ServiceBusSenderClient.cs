@@ -13,6 +13,10 @@ namespace ServiceBus.Framework.Implementation
     {
         private readonly ServiceBusSender _serviceBusSender;
 
+        /// <summary>
+        /// Default comstructor to initialise client
+        /// </summary>
+        /// <param name="serviceBusSender"><see cref="ServiceBusSender"/> from DI container</param>
         public ServiceBusSenderClient(ServiceBusSender serviceBusSender)
         {
             _serviceBusSender = serviceBusSender;

@@ -1,5 +1,4 @@
-﻿using Azure.Messaging.ServiceBus;
-using ServiceBus.Framework.Models;
+﻿using ServiceBus.Framework.Models;
 using ServiceBus.Framework.Response;
 
 namespace ServiceBus.Framework.Interfaces
