@@ -1,7 +1,7 @@
 ﻿namespace ServiceBus.Framework.Interfaces
 {
     /// <summary>
-    /// ServiceBusService for public consumption of sending messages
+    /// Interface for sending messages to Service Bus
     /// </summary>
     public interface IServiceBusService
     {
@@ -11,6 +11,7 @@
         /// <param name="entity">The object to send as a message</param>
         /// <returns><see langword="true"/> if messages queued successfully. <see langword="false"/> if messages failed to be queued</returns>
         Task<bool> QueueMessageAsync<T>(T entity);
+
         /// <summary>
         /// Queue a batch message to send to the service bus
         /// </summary>

@@ -9,11 +9,15 @@ namespace ServiceBus.Framework.Implementation
     /// <summary>
     /// Service bus client that sends messages to a queue or topic
     /// </summary>
-    public class ServiceBusClient : IServiceBusClient
+    public class ServiceBusSenderClient : IServiceBusSenderClient
     {
         private readonly ServiceBusSender _serviceBusSender;
 
-        public ServiceBusClient(ServiceBusSender serviceBusSender)
+        /// <summary>
+        /// Default comstructor to initialise client
+        /// </summary>
+        /// <param name="serviceBusSender"><see cref="ServiceBusSender"/> from DI container</param>
+        public ServiceBusSenderClient(ServiceBusSender serviceBusSender)
         {
             _serviceBusSender = serviceBusSender;
         }
@@ -28,11 +32,12 @@ namespace ServiceBus.Framework.Implementation
                     using ServiceBusMessageBatch messageBatch = await _serviceBusSender.CreateMessageBatchAsync();
                     foreach (var eventItem in @event)
                     {
-                        if(!messageBatch.TryAddMessage(new ServiceBusMessage(JsonConvert.SerializeObject(eventItem))))
+                        if (!messageBatch.TryAddMessage(new ServiceBusMessage(JsonConvert.SerializeObject(eventItem))))
                         {
                             throw new Exception($"The message {eventItem.Message} could not be added to the message batch");
                         }
                     }
+
                     await _serviceBusSender.SendMessagesAsync(messageBatch);
                 }
                 catch (Exception ex)

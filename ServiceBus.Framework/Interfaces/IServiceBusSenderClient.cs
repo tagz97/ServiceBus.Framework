@@ -6,7 +6,7 @@ namespace ServiceBus.Framework.Interfaces
     /// <summary>
     /// Abstraction of the ServiceBusClient for sending messages
     /// </summary>
-    public interface IServiceBusClient
+    public interface IServiceBusSenderClient
     {
         /// <summary>
         /// Send a message to a queue or topic
@@ -15,6 +15,7 @@ namespace ServiceBus.Framework.Interfaces
         /// <param name="event">Event for processing <see cref="Event{T}"/></param>
         /// <returns><see cref="ServiceBusResponse"/></returns>
         Task<ServiceBusResponse> SendMessageAsync<T>(Event<T> @event);
+
         /// <summary>
         /// Send a batch of messages to the queue or topic
         /// </summary>
