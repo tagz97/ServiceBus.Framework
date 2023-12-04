@@ -23,14 +23,24 @@ public ClassName(IServiceBusService serviceBusService)
 // To send a single message
 public async Task<bool> SendMessage(Class item)
 {
-    return await _serviceBusService.QueueMessageAsync<Class>(item);
+    var response = await _serviceBusService.QueueMessageAsync<Class>(item);
+    if (!response.Success)
+    {
+        // Handle failure using response.Message
+    }
+
+    return response.Success;
 }
 
 // To send a message batch
 public async Task<bool> SendMessages(List<Class> items)
 {
-     return await _serviceBusService.QueueBatchMessageAsync<Class>(items);
+     var response = await _serviceBusService.QueueBatchMessageAsync<Class>(items);
+    if (!response.Success)
+    {
+        // Handle failure using response.Message
+    }
+
+    return response.Success;
 }
 ```
-# Under investigation
-- Add a listener for a queue or topic with subscription
